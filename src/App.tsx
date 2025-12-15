@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
-// interface Data {
-//   tolNeveshteTablo: number;
-//   noeHrof: "حروف سوعدی" | "حروف عادی";
-//   abadBox: number;
-//   opt: any[];
-// }
+interface Data {
+  tolNeveshteTablo: number;
+  noeHrof: "حروف سوعدی" | "حروف عادی";
+  abadBox: number;
+  opt: any[];
+}
 
 function App() {
   const price = {
