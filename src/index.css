@@ -8,3 +8,33 @@
 .vazir {
   font-family: vazir !important;
 }
+
+body {
+  background-color: #ffffff;
+}
+
+#mohasebe {
+  position: relative;
+}
+#mohasebe:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -55px;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 1px;
+  background: #669999;
+  border-radius: 50px;
+}
+#mohasebe::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -55px;
+  transform: translate(50%, -50%);
+  width: 100px;
+  height: 1px;
+  background: #669999;
+  border-radius: 50px;
+}
