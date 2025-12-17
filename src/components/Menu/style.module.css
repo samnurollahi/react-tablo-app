@@ -1,0 +1,12 @@
+.animatedPopup {
+  animation: animPoup 0.3s ease;
+}
+
+@keyframes animPoup {
+  0% {
+    transform: scale(0.6);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
