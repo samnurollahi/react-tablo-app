@@ -1,7 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 import Menu from "../../components/Menu/Menu";
+
+import styled from "../../components/Menu/style.module.css";
 
 // interface Data {
 //   tolNeveshteTablo: number;
@@ -49,6 +51,8 @@ function Home() {
   const [priceProfile, setPriceProfile] = useState<number>(0);
   const [countProfile, setCountProfile] = useState<number>(0);
 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   const noeHorofPrice = useRef<number>(750_000);
   const kampozitPriceStatic = useRef<number>(500_000);
   const nasbPriceStatic = useRef<number>(300_000);
@@ -73,6 +77,10 @@ function Home() {
     } else {
       setOptionList([...optionList, option]);
     }
+  };
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
   };
 
   const calculateBoxPrice = (width: number, height: number) => {
@@ -485,9 +493,7 @@ function Home() {
 
         <div>
           <button
-            onClick={() => {
-              console.log("click me");
-            }}
+            onClick={togglePopup}
             id="mohasebe"
             className={`bg-[#669999] block m-auto cursor-pointer! text-white  rounded-4xl px-18 py-2 ${
               optionBox ? "z-[-1]" : ""
@@ -568,6 +574,83 @@ function Home() {
 
         {/* menu */}
         <Menu />
+
+        {/* Popup */}
+        {isPopupOpen && (
+          <>
+            <div className="fixed inset-0  flex justify-center items-center z-50">
+              <div
+                className={`bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[800px] z-50 ${styled.animatedPopup}`}
+              >
+                <h2 className="text-xl font-bold mb-4">فاکتور</h2>
+                <table
+                  key={"word"}
+                  className="animate__animated animate__fadeIn  table-auto w-full text-right border-collapse"
+                >
+                  <thead className="bg-[#f0edec]">
+                    <tr>
+                      <th className="p-3 text-[#303f67]">نوع سفارش</th>
+                      <th className="p-3 text-[#303f67]">تعداد</th>
+                      <th className="p-3 text-[#303f67]">مبلغ نهایی</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td className="p-3 ">{noeHrof}</td>
+                      <td className="p-3 ">{tolTabloOne / 100} متر</td>
+                      <td className="p-3 ">{priceText.toLocaleString()}</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 ">آپشن ها</td>
+                      <td className="p-3 ">{optionList.length} عدد</td>
+                      <td className="p-3 ">{otpPrice.toLocaleString()}</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 ">باکس</td>
+                      <td className="p-3 ">{boxCount} متر</td>
+                      <td className="p-3 ">{priceBox.toLocaleString()}</td>
+                    </tr>
+
+                    <tr>
+                      <td className="p-3 ">ورق کامپوزیت</td>
+                      <td className="p-3 ">{countKampozit}</td>
+                      <td className="p-3 ">{kampozitPrice.toLocaleString()}</td>
+                    </tr>
+
+                    <tr>
+                      <td className="p-3 ">پروفیل اهنی</td>
+                      <td className="p-3 ">{countProfile}</td>
+                      <td className="p-3 ">{priceProfile}</td>
+                    </tr>
+
+                    <tr>
+                      <td className="p-3 ">نصب</td>
+                      <td className="p-3 ">1 بار</td>
+                      <td className="p-3 ">{priceNasb.toLocaleString()}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br />
+                <br />
+                <br />
+
+                <p></p>
+
+                <button
+                  className="bg-[#669999] cu text-white px-4 py-2 rounded-lg cursor-pointer"
+                  onClick={togglePopup}
+                >
+                  بستن
+                </button>
+              </div>
+              <div
+                className="fixed inset-0 bg-black opacity-80 z-40"
+                onClick={togglePopup}
+              ></div>
+            </div>
+          </>
+        )}
 
         <br />
         <br />
