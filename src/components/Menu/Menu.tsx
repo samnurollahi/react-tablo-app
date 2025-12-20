@@ -11,11 +11,11 @@ export default function () {
   return (
     <>
       <div className=" fixed bottom-[15px] right-[25%] md:top-[20%] md:right-[25px] bg-transparent">
-        <nav className="flex flex-row md:flex-col gap-3">
+        <nav className="flex flex-row md:flex-col gap-3 text-center">
           <Link
             to={"/"}
             className={`cursor-pointer  bg-[#669999] text-white
-                p-2 rounded-lg transition-all duration-300 hover:rounded-4xl`}
+                p-2 px-7 rounded-lg transition-all duration-300 hover:rounded-4xl`}
           >
             ماشین حساب
           </Link>

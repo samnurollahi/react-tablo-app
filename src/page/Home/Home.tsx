@@ -89,7 +89,6 @@ function Home() {
 
   useEffect(() => {
     let newPrice: number = 0;
-    let profil: number = 0;
 
     newPrice +=
       (namaTabloWidth / 100) * (namaTabloHeight / 100) +
@@ -486,8 +485,13 @@ function Home() {
 
         <div>
           <button
+            onClick={() => {
+              console.log("click me");
+            }}
             id="mohasebe"
-            className="bg-[#669999] block m-auto cursor-pointer! text-white  rounded-4xl px-18 py-2 z-[-1]"
+            className={`bg-[#669999] block m-auto cursor-pointer! text-white  rounded-4xl px-18 py-2 ${
+              optionBox ? "z-[-1]" : ""
+            } `}
           >
             محاسبه
           </button>
