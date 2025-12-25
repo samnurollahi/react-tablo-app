@@ -26,13 +26,13 @@ export default function () {
           >
             اموزش
           </Link>
-          <a
+          <Link
+            to={"/about"}
             className={`cursor-pointer  bg-[#669999] text-white
                p-2 rounded-lg transition-all duration-300 hover:rounded-4xl`}
-            onClick={togglePopup}
           >
-            درباره ما
-          </a>
+            ارتباط با ما
+          </Link>
         </nav>
       </div>
 

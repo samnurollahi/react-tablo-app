@@ -4,6 +4,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import Menu from "../../components/Menu/Menu";
 
 import styled from "../../components/Menu/style.module.css";
+import { Link } from "react-router-dom";
 
 // interface Data {
 //   tolNeveshteTablo: number;
@@ -17,9 +18,18 @@ function Home() {
     word: 700_000,
     abad: 700_000,
     option: {
-      "لبه پانچی": 100_000,
-      "لبه عادی": 200_000,
-      "آپشن رنگی": 500_000,
+      "لبه رنگی و طلایی": 20_000,
+      "لبه پانچ": 40_000,
+      "پلکسی دوبل": 70_000,
+      "پلکسی دوبل الماسی": 90_000,
+      "پلکسی تک الماسی": 25_000,
+      "پلکسی دوبل طلایی": 70_000,
+      "پلکسی دوبل طلایی الماسی سفارشی": 202_000,
+      "پلکسی رینگی الماسی": 100_000,
+      نوراندریک: 100_000,
+      فوری: 100_000,
+      کریستال: 200_000,
+      "استیکر رنگی": 25_000,
     },
   };
 
@@ -28,9 +38,9 @@ function Home() {
   const [optionList, setOptionList] = useState<string[]>([]);
   const [tolTabloOne, setTolTabloOne] = useState<number>(0);
   const [priceText, setPriceText] = useState<number>(0);
-  const [noeHrof, setNoeHrof] = useState<"حروف سوعدی" | "حروف عادی">(
-    "حروف سوعدی"
-  );
+  const [noeHrof, setNoeHrof] = useState<
+    "حروف سوئدی" | "حروف چنلیوم" | "حروف پلاستیک"
+  >("حروف سوئدی");
   const [abadBoxOne, setAbadBoxOne] = useState<number>(0);
   const [abadBoxTwo, setAbadBoxTwo] = useState<number>(0);
   const [priceBox, setPriceBox] = useState<number>(0);
@@ -53,7 +63,7 @@ function Home() {
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const noeHorofPrice = useRef<number>(750_000);
+  const noeHorofPrice = useRef<number>(580_000);
   const kampozitPriceStatic = useRef<number>(500_000);
   const nasbPriceStatic = useRef<number>(300_000);
   const profilPriceStatic = useRef<number>(200_000);
@@ -90,9 +100,13 @@ function Home() {
     const count = widthInMeter * heightInMeter * 2.5;
     setBoxCount(Math.round(count));
 
-    const price = count * noeHorofPrice.current;
-
-    setPriceBox(Math.round(price));
+    if (noeHrof == "حروف پلاستیک") {
+      const price = count * 680_000; //! gymat horof plastik
+      setPriceBox(Math.round(price));
+    } else {
+      const price = count * noeHorofPrice.current;
+      setPriceBox(Math.round(price));
+    }
   };
 
   useEffect(() => {
@@ -216,7 +230,7 @@ function Home() {
                     name=""
                     id=""
                     dir="ltr"
-                    value={tolTabloOne}
+                    value={tolTabloOne == 0 ? "" : tolTabloOne}
                     min="0"
                     onChange={(e) => {
                       setTolTabloOne(
@@ -242,12 +256,18 @@ function Home() {
                     id=""
                     value={noeHrof}
                     onChange={(e) =>
-                      setNoeHrof(e.target.value as "حروف سوعدی" | "حروف عادی")
+                      setNoeHrof(
+                        e.target.value as
+                          | "حروف سوئدی"
+                          | "حروف چنلیوم"
+                          | "حروف پلاستیک"
+                      )
                     }
                     className="w-full border-0 outline-0 text-[#408080]"
                   >
-                    <option value="حروف سوعدی">حروف سوعدی</option>
-                    <option value="حروف عادی">حروف عادی</option>
+                    <option value="حروف سوعدی">حروف سوئدی</option>
+                    <option value="حروف عادی">حروف چنلیوم</option>
+                    <option value="حروف عادی">حروف پلاستیک</option>
                   </select>
                 </div>
               </div>
@@ -264,7 +284,7 @@ function Home() {
                     className="w-[25%] outline-0 text-[#408080]"
                     name=""
                     id=""
-                    value={abadBoxOne}
+                    value={abadBoxOne == 0 ? "" : abadBoxOne}
                     min="0"
                     onChange={(e) => {
                       const val = Number(e.target.value);
@@ -280,7 +300,7 @@ function Home() {
                     name=""
                     id=""
                     dir="ltr"
-                    value={abadBoxTwo}
+                    value={abadBoxTwo == 0 ? "" : abadBoxTwo}
                     min="0"
                     onChange={(e) => {
                       const val = Number(e.target.value);
@@ -320,9 +340,19 @@ function Home() {
                   <div
                     className={`${
                       optionBox ? "" : "hidden"
-                    } absolute z-10 bottom-[-120px] w-full right-0 bg-[#f0edec] text-[#303f67] border border-t-0 border-[#ffffff] rounded-b-2xl overflow-hidden`}
+                    } absolute z-10 top-full w-full right-0 bg-[#f0edec] text-[#303f67] border border-t-0 border-[#ffffff] rounded-b-2xl overflow-hidden`}
                   >
-                    <p
+                    {Object.keys(price.option).map((key) => (
+                      <>
+                        <p
+                          className="py-2 px-4 hover:bg-white w-full"
+                          onClick={() => handleOptionClick(key)}
+                        >
+                          {key}
+                        </p>
+                      </>
+                    ))}
+                    {/* <p
                       className="py-2 px-4 hover:bg-white w-full"
                       onClick={() => handleOptionClick("لبه پانچی")}
                     >
@@ -339,7 +369,7 @@ function Home() {
                       onClick={() => handleOptionClick("آپشن رنگی")}
                     >
                       آپشن رنگی
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </div>
@@ -362,7 +392,7 @@ function Home() {
                     name=""
                     id=""
                     min="0"
-                    value={namaTabloWidth}
+                    value={namaTabloWidth == 0 ? "" : namaTabloWidth}
                     onChange={(e) => {
                       setNamaTabloWidth(Number(e.target.value));
                     }}
@@ -377,7 +407,7 @@ function Home() {
                     id=""
                     dir="ltr"
                     min="0"
-                    value={namaTabloHeight}
+                    value={namaTabloHeight == 0 ? "" : namaTabloHeight}
                     onChange={(e) => {
                       setNamaTabloHeight(Number(e.target.value));
                     }}
@@ -397,7 +427,7 @@ function Home() {
                     name=""
                     id=""
                     min="0"
-                    value={+zirTabloWidth}
+                    value={+zirTabloWidth == 0 ? "" : +zirTabloWidth}
                     onChange={(e) => {
                       setZirTabloWidth(Number(e.target.value));
                     }}
@@ -411,7 +441,7 @@ function Home() {
                     name=""
                     id=""
                     dir="ltr"
-                    value={+zirTabloHeight}
+                    value={+zirTabloHeight == 0 ? "" : +zirTabloHeight}
                     onChange={(e) => {
                       setZirTabloHeight(Number(e.target.value));
                     }}
@@ -430,7 +460,7 @@ function Home() {
                     className="w-[25%] outline-0 text-[#408080]"
                     name=""
                     id=""
-                    value={+balaTabloWidth}
+                    value={+balaTabloWidth == 0 ? "" : +balaTabloWidth}
                     onChange={(e) => {
                       setBalaTabloWidth(Number(e.target.value));
                     }}
@@ -445,7 +475,7 @@ function Home() {
                     name=""
                     id=""
                     dir="ltr"
-                    value={+balaTabloHeight}
+                    value={+balaTabloHeight == 0 ? "" : +balaTabloHeight}
                     onChange={(e) => {
                       setBalaTabloHeight(Number(e.target.value));
                     }}
@@ -464,7 +494,7 @@ function Home() {
                     className="w-[25%] outline-0 text-[#408080]"
                     name=""
                     id=""
-                    value={+bagalTabloWidth}
+                    value={+bagalTabloWidth == 0 ? "" : +bagalTabloWidth}
                     onChange={(e) => {
                       setBagalTabloWidth(Number(e.target.value));
                     }}
@@ -480,7 +510,7 @@ function Home() {
                     id=""
                     dir="ltr"
                     min="0"
-                    value={+bagalTabloHeight}
+                    value={+bagalTabloHeight == 0 ? "" : +bagalTabloHeight}
                     onChange={(e) => {
                       setBagalTabloHeight(Number(e.target.value));
                     }}
@@ -531,7 +561,7 @@ function Home() {
                 </tr>
                 <tr>
                   <td className="p-3 ">باکس</td>
-                  <td className="p-3 ">{boxCount} متر</td>
+                  <td className="p-3 ">{boxCount}</td>
                   <td className="p-3 ">{priceBox.toLocaleString()}</td>
                 </tr>
               </tbody>
@@ -608,7 +638,7 @@ function Home() {
                     </tr>
                     <tr>
                       <td className="p-3 ">باکس</td>
-                      <td className="p-3 ">{boxCount} متر</td>
+                      <td className="p-3 ">{boxCount}</td>
                       <td className="p-3 ">{priceBox.toLocaleString()}</td>
                     </tr>
 
@@ -629,6 +659,21 @@ function Home() {
                       <td className="p-3 ">1 بار</td>
                       <td className="p-3 ">{priceNasb.toLocaleString()}</td>
                     </tr>
+
+                    <tr>
+                      <td className="p-3 ">جمع کل</td>
+                      <td className="p-3 "></td>
+                      <td className="p-3 ">
+                        {(
+                          priceText +
+                          otpPrice +
+                          priceBox +
+                          kampozitPrice +
+                          priceProfile +
+                          priceNasb
+                        ).toLocaleString()}
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 <br />
@@ -637,12 +682,13 @@ function Home() {
 
                 <p></p>
 
-                <button
+                <Link
+                  to={"/about"}
                   className="bg-[#669999] cu text-white px-4 py-2 rounded-lg cursor-pointer"
-                  onClick={togglePopup}
+                  // onClick={togglePopup}
                 >
-                  بستن
-                </button>
+                  سفارش از ما
+                </Link>
               </div>
               <div
                 className="fixed inset-0 bg-black opacity-80 z-40"
