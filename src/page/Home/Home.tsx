@@ -225,7 +225,7 @@ function Home() {
 
                   <input
                     type="number"
-                    className="w-full outline-0 text-[#408080]"
+                    className="w-[95%] outline-0 text-[#408080]"
                     name=""
                     id=""
                     dir="ltr"
@@ -701,7 +701,7 @@ function Home() {
       </div>
 
       {/* text */}
-      <div className="w-[60%] m-auto mb-25 bg vazir">
+      <div className="w-[90%] md:w-[60%] m-auto mb-25 bg vazir">
         <h1 className="text-[20px] font-bold text-center text-[#3399CC]">
           وب سایت تابـلو آپ
         </h1>

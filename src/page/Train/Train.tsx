@@ -4,7 +4,7 @@ export default () => {
   return (
     <>
       {false ? (
-        <div className="vazir bg-[#ffffff] min-h-screen flex flex-col items-center py-10">
+        <div className="vazir bg-[#ffffff] min-h-screen mt-[150px] flex flex-col items-center py-10">
           <div className="bg-white shadow-md rounded-lg p-6 w-[90%] md:w-[600px]">
             <video controls className="w-full rounded-md">
               <source
@@ -31,7 +31,7 @@ export default () => {
       ) : (
         <>
           <Menu />
-          <h1 className="text-center mt-[100px] vazir">
+          <h1 className="text-center mt-[150px] vazir">
             این صفحه زمانی نمایش داده میشد که کارفرما محترم محتوا را ارسال نماید
           </h1>
         </>

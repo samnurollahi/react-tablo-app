@@ -3,7 +3,7 @@ export default () => {
     <>
       <div className="vazir bg-[#ffffff] min-h-screen flex flex-col items-center justify-center py-10 h-full w-full">
         <div className="bg-white shadow-md rounded-lg p-6 w-[90%] md:w-[600px] mt-6">
-          <h1 className="text-2xl font-bold text-[#303f67] mb-4 text-center">
+          <h1 className="text-2xl font-bold text-[#303f67] mb-4 text-center overflow-hidden">
             ارتباط با ما
           </h1>
           <p className="text-gray-700 leading-relaxed"></p>

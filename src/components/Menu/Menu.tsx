@@ -10,26 +10,26 @@ export default function () {
   };
   return (
     <>
-      <div className=" fixed bottom-[15px] right-[25%] md:top-[20%] md:right-[25px] bg-transparent">
-        <nav className="flex flex-row md:flex-col gap-3 text-center">
+      <div className="z-9999 w-full md:w-auto fixed bottom-[15px] translate-x-1/2  md:translate-x-0 right-[50%] md:top-[20%] md:right-[25px] bg-transparent">
+        <nav className="flex gap-4 flex-row md:flex-col justify-center md:justify-start text-center">
           <Link
             to={"/"}
-            className={`cursor-pointer  bg-[#669999] text-white
-                p-2 px-7 rounded-lg transition-all duration-300 hover:rounded-4xl`}
+            className={`cursor-pointer  bg-[#669999] text-white 
+                p-2 px-7 rounded-lg transition-all duration-300 hover:rounded-4xl text-[12px] md:text-[15px]`}
           >
             ماشین حساب
           </Link>
           <Link
             to={"/train"}
-            className={`cursor-pointer  bg-[#669999] text-white
-               p-2 rounded-lg transition-all duration-300 hover:rounded-4xl`}
+            className={`cursor-pointer  bg-[#669999] text-white  
+               p-2 rounded-lg transition-all duration-300 hover:rounded-4xl text-[12px] md:text-[15px]`}
           >
             اموزش
           </Link>
           <Link
             to={"/about"}
-            className={`cursor-pointer  bg-[#669999] text-white
-               p-2 rounded-lg transition-all duration-300 hover:rounded-4xl`}
+            className={`cursor-pointer  bg-[#669999] text-white w-[28%] md:w-auto 
+               p-2 rounded-lg transition-all duration-300 hover:rounded-4xl text-[12px] md:text-[15px]`}
           >
             ارتباط با ما
           </Link>

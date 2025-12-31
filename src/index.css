@@ -5,6 +5,10 @@
   src: url(../public/fonts/vazir.ttf);
 }
 
+* {
+  /* overflow-x: hidden !important; */
+}
+
 .vazir {
   font-family: vazir !important;
 }
