@@ -1,5 +1,3 @@
-import Menu from "../../components/Menu/Menu";
-
 export default () => {
   return (
     <>
@@ -38,7 +36,6 @@ export default () => {
             </div>
           </div>
         </div>
-        <Menu />
       </div>
     </>
   );

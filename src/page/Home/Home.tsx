@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
-import Menu from "../../components/Menu/Menu";
-
 import styled from "../../components/Menu/style.module.css";
 import { Link } from "react-router-dom";
 
@@ -602,9 +600,6 @@ function Home() {
             </table>
           )}
         </div>
-
-        {/* menu */}
-        <Menu />
 
         {/* Popup */}
         {isPopupOpen && (
