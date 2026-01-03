@@ -3,7 +3,7 @@ import { useState } from "react";
 import styled from "./style.module.css";
 import { Link } from "react-router-dom";
 
-export default function () {
+export default function ({ page = null }: { page: string | null }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
@@ -12,13 +12,24 @@ export default function () {
     <>
       <div className="z-9999 w-full md:w-auto fixed bottom-[15px] translate-x-1/2  md:translate-x-0 right-[50%] md:top-[20%] md:right-[25px] bg-transparent">
         <nav className="flex gap-4 flex-row md:flex-col justify-center md:justify-start text-center">
-          <Link
-            to={"/"}
-            className={`cursor-pointer  bg-[#669999] text-white 
+          {page == "Home" ? (
+            <a
+              href={"#box"}
+              className={`cursor-pointer  bg-[#669999] text-white 
                 p-2 px-7 rounded-lg transition-all duration-300 hover:rounded-4xl text-[12px] md:text-[15px]`}
-          >
-            ماشین حساب
-          </Link>
+            >
+              ماشین حساب
+            </a>
+          ) : (
+            <Link
+              to={"/"}
+              className={`cursor-pointer  bg-[#669999] text-white 
+                p-2 px-7 rounded-lg transition-all duration-300 hover:rounded-4xl text-[12px] md:text-[15px]`}
+            >
+              ماشین حساب
+            </Link>
+          )}
+
           <Link
             to={"/train"}
             className={`cursor-pointer  bg-[#669999] text-white  

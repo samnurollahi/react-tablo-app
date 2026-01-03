@@ -7,7 +7,7 @@ const Container = ({ children }: { children: ReactNode }) => {
   return (
     <div className="vazir">
       <Icon />
-      <Menu />
+
       <GotoTop />
       {children}
     </div>

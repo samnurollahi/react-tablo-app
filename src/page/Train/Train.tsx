@@ -26,11 +26,12 @@ export default () => {
               hic, unde facere dolor. Porro, corporis suscipit.
             </p>
           </div>
-          <Menu />
+          <Menu key={"Menu"} page={"Train"} />
         </div>
       ) : (
         <>
-          <Menu />
+          <Menu key={"Menu"} page={"Train"} />
+
           <h1 className="text-center mt-[150px] vazir">
             این صفحه زمانی نمایش داده میشد که کارفرما محترم محتوا را ارسال نماید
           </h1>

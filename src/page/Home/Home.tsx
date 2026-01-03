@@ -3,6 +3,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 
 import styled from "../../components/Menu/style.module.css";
 import { Link } from "react-router-dom";
+import Menu from "../../components/Menu/Menu";
 
 // interface Data {
 //   tolNeveshteTablo: number;
@@ -59,6 +60,16 @@ function Home() {
   const [priceNasb, setPriceNasb] = useState<number>(0);
   const [priceProfile, setPriceProfile] = useState<number>(0);
   const [countProfile, setCountProfile] = useState<number>(0);
+
+  const [result, setResult] = useState<any>({
+    smd: {},
+    pvcStrip: {},
+    print: {},
+    aluminum: {},
+    pvcSheet: {},
+    transformers: {},
+    totalPrice: 0,
+  });
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -167,9 +178,110 @@ function Home() {
     bagalTabloHeight,
   ]);
 
+  useEffect(() => {
+    function calculateLightboxPrice(widthCm: number, heightCm: number): any {
+      const widthM = widthCm / 100;
+      const heightM = heightCm / 100;
+      const area = widthM * heightM;
+      const perimeter = 2 * (widthM + heightM);
+
+      // ۱. محاسبات مقادیر
+      const smdCount = Math.ceil(area * 9);
+      const pvcStripLength = perimeter;
+      const aluminumLength = perimeter;
+      const pvcSheetArea = area;
+      const printArea = area + area * 0.1;
+
+      // ۲. منطق ترکیب ترانس‌ها
+      const totalWattsNeeded = area * 125;
+      let remainingWatts = totalWattsNeeded;
+      let t400 = 0,
+        t300 = 0,
+        t200 = 0;
+
+      while (remainingWatts > 0) {
+        if (remainingWatts > 300) {
+          t400++;
+          remainingWatts -= 400;
+        } else if (remainingWatts > 200) {
+          t300++;
+          remainingWatts -= 300;
+        } else {
+          t200++;
+          remainingWatts -= 200;
+        }
+      }
+
+      // ۳. قیمت‌های واحد (تومان)
+      const unitPrices = {
+        smd: 120000,
+        pvcStrip: 400000,
+        print: 600000,
+        trans200: 750000,
+        trans300: 800000,
+        trans400: 850000,
+        aluminum: 500000,
+        pvcSheet: 500000,
+      };
+
+      // ۴. ساخت آبجکت نهایی مطابق درخواست شما
+      const result = {
+        smd: {
+          count: smdCount,
+          price: smdCount * unitPrices.smd,
+        },
+        pvcStrip: {
+          count: Number(pvcStripLength.toFixed(2)),
+          price: pvcStripLength * unitPrices.pvcStrip,
+        },
+        print: {
+          count: Number(printArea.toFixed(2)),
+          price: printArea * unitPrices.print,
+        },
+        aluminum: {
+          count: Number(aluminumLength.toFixed(2)),
+          price: aluminumLength * unitPrices.aluminum,
+        },
+        pvcSheet: {
+          count: Number(pvcSheetArea.toFixed(2)),
+          price: pvcSheetArea * unitPrices.pvcSheet,
+        },
+        transformers: {
+          t400Count: t400,
+          t300Count: t300,
+          t200Count: t200,
+          price:
+            t400 * unitPrices.trans400 +
+            t300 * unitPrices.trans300 +
+            t200 * unitPrices.trans200,
+        },
+      };
+
+      // محاسبه مبلغ کل نهایی
+      const totalPrice =
+        result.smd.price +
+        result.pvcStrip.price +
+        result.print.price +
+        result.aluminum.price +
+        result.pvcSheet.price +
+        result.transformers.price;
+
+      return {
+        ...result,
+        totalPrice: Math.round(totalPrice),
+      };
+    }
+
+    const result = calculateLightboxPrice(namaTabloWidth, namaTabloHeight);
+    setResult(result);
+  }, [namaTabloWidth, namaTabloHeight]);
+
   return (
     <>
-      <div className="vazir">
+      {/* Menu */}
+      <Menu key={"Menu"} page={"Home"} />
+
+      <div className="vazir" id="box">
         {/* header */}
         <div className="bg-white flex justify-around py-[35px]  w-[95%] md:w-[500px] m-auto rounded-b-3xl">
           <button
@@ -604,16 +716,16 @@ function Home() {
         {/* Popup */}
         {isPopupOpen && (
           <>
-            <div className="fixed inset-0  flex justify-center items-center z-50">
+            <div className="fixed scroll-auto inset-0  flex justify-center items-center z-50">
               <div
-                className={`bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[800px] z-50 ${styled.animatedPopup}`}
+                className={`bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[800px] overflow-y-scroll h-[450px] z-50 ${styled.animatedPopup}`}
               >
                 <h2 className="text-xl font-bold mb-4">فاکتور</h2>
                 <table
                   key={"word"}
-                  className="animate__animated animate__fadeIn  table-auto w-full text-right border-collapse"
+                  className=" animate__animated animate__fadeIn  table-auto w-full text-right border-collapse  "
                 >
-                  <thead className="bg-[#f0edec]">
+                  <thead className="bg-[#f0edec] ">
                     <tr>
                       <th className="p-3 text-[#303f67]">نوع سفارش</th>
                       <th className="p-3 text-[#303f67]">تعداد</th>
@@ -651,6 +763,44 @@ function Home() {
                     </tr>
 
                     <tr>
+                      <td className="p-3 ">شاخه اس ام دی</td>
+                      <td className="p-3 ">{result.smd.count}</td>
+                      <td className="p-3 ">{result.smd.price}</td>
+                    </tr>
+
+                    <tr>
+                      <td className="p-3 "> نوار پی وی سی فریم لس</td>
+                      <td className="p-3 ">{result.pvcStrip.count} متر</td>
+                      <td className="p-3 ">{result.pvcStrip.price}</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 ">چاپ 8 پس یو وی روی پارچه تکستایل</td>
+                      <td className="p-3 ">{result.print.count} مترمربع</td>
+                      <td className="p-3 ">{result.print.price}</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 ">پروفیل آلومینیومی لایت باکس </td>
+                      <td className="p-3 ">{result.aluminum.count}</td>
+                      <td className="p-3 ">{result.aluminum.price}</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 ">پی وی سی </td>
+                      <td className="p-3 ">{result.pvcSheet.count}</td>
+                      <td className="p-3 ">{result.pvcSheet.price}</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 "> ترانس </td>
+                      <td className="p-3 ">
+                        تعداد ترانس 400 وات:{" "}
+                        {result.transformers.t400Count + " "}
+                        تعداد ترانس 300 وات:{" "}
+                        {result.transformers.t300Count + " "}
+                        تعداد ترانس 200 وات:{" "}
+                        {result.transformers.t200Count + " "}
+                      </td>
+                      <td className="p-3 ">{result.transformers.price}</td>
+                    </tr>
+                    <tr>
                       <td className="p-3 ">نصب</td>
                       <td className="p-3 ">1 بار</td>
                       <td className="p-3 ">{priceNasb.toLocaleString()}</td>
@@ -666,7 +816,8 @@ function Home() {
                           priceBox +
                           kampozitPrice +
                           priceProfile +
-                          priceNasb
+                          priceNasb +
+                          result.totalPrice
                         ).toLocaleString()}
                       </td>
                     </tr>
