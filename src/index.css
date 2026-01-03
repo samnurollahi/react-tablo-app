@@ -5,8 +5,8 @@
   src: url(../public/fonts/vazir.ttf);
 }
 
-* {
-  overflow-x: hidden !important;
+/* * {
+  overflow-x: hidden;
 }
 h1,
 p,
@@ -18,6 +18,10 @@ li,
 a {
   overflow: hidden;
 }
+#xxx {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+} */
 
 .vazir {
   font-family: vazir !important;

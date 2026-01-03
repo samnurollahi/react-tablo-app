@@ -421,15 +421,15 @@ function Home() {
                 </div>
               </div>
 
-              <div className="w-full mb-[25px]">
+              <div className="w-full mb-[25px] " id="xxx">
                 <label htmlFor="" className="text-[#c4ab74]">
                   آپشن ها
                 </label>
                 <div
-                  className="flex relative items-center w-full justify-between mt-3 px-3 py-3 bg-[#ffffff] rounded-md border border-[#dde2d8] cursor-pointer"
+                  className="flex relative items-center w-full justify-between mt-3 px-3 py-3 bg-[#ffffff] rounded-md border border-[#dde2d8] cursor-pointer  "
                   onClick={() => setOptionBox(!optionBox)}
                 >
-                  <div className="w-full">
+                  <div className="w-full ">
                     {optionList.length > 0 ? (
                       optionList.map((option, index) => (
                         <span
@@ -451,7 +451,7 @@ function Home() {
                   <div
                     className={`${
                       optionBox ? "" : "hidden"
-                    } absolute z-10 top-full w-full right-0 bg-[#f0edec] text-[#303f67] border border-t-0 border-[#ffffff] rounded-b-2xl overflow-hidden`}
+                    } absolute z-10 top-full w-full right-0 bg-[#f0edec] text-[#303f67] border border-t-0 border-[#ffffff] rounded-b-2xl overflow-hidden `}
                   >
                     {Object.keys(price.option).map((key) => (
                       <>
@@ -463,24 +463,6 @@ function Home() {
                         </p>
                       </>
                     ))}
-                    {/* <p
-                      className="py-2 px-4 hover:bg-white w-full"
-                      onClick={() => handleOptionClick("لبه پانچی")}
-                    >
-                      لبه پانجی
-                    </p>
-                    <p
-                      className="py-2 px-4 hover:bg-white w-full"
-                      onClick={() => handleOptionClick("لبه عادی")}
-                    >
-                      لبه عادی
-                    </p>
-                    <p
-                      className="py-2 px-4 hover:bg-white w-full"
-                      onClick={() => handleOptionClick("آپشن رنگی")}
-                    >
-                      آپشن رنگی
-                    </p> */}
                   </div>
                 </div>
               </div>
@@ -632,7 +614,7 @@ function Home() {
           )}
         </div>
 
-        <div>
+        <div className="overflow-hidden">
           <button
             onClick={togglePopup}
             id="mohasebe"
@@ -720,7 +702,9 @@ function Home() {
               <div
                 className={`bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[800px] overflow-y-scroll h-[450px] z-50 ${styled.animatedPopup}`}
               >
-                <h2 className="text-xl font-bold mb-4">فاکتور</h2>
+                <h2 className="text-xl font-bold mb-4 overflow-hidden">
+                  فاکتور
+                </h2>
                 <table
                   key={"word"}
                   className=" animate__animated animate__fadeIn  table-auto w-full text-right border-collapse  "
